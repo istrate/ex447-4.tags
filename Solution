@@ -1,0 +1,39 @@
+7. Tags task ---> tag alpha copy x, tag beta copy y, if not use than nothing run. Use never along with given tags in playbook.
+
+=====================================================================================================
+web server with tags
+
+clone the git
+
+modify the playbook by adding the tasks
+--> If you execute playbook with tag "alpha" , then then the playbook should deploy "Hi webserver" to the node in the inventory
+--> If you execute playbook with tag "beta" , then then the playbook should deploy "webserver config" to the node in the inventory
+--> If you execute playbook with no tags, then the play should not execute any of the above tasks
+
+=====================================================================================================
+
+
+- name: tags_task
+  hosts: dev
+  tasks:
+		- name: Copied alpha http content
+			copy:
+				content: "Hi webserver"
+				dest: /var/www/http/index.html
+			tags:
+				- alpha
+				- never
+
+		- name: Copied beta http content
+			copy:
+				content: "webserver config"
+				dest: /var/www/http/index.html
+			tags:
+				- beta
+				- never
+        
+ ####tags: [never , alpha] ----- can be written like this also
+======================================================================================================
+ansible-playbook tag.yml --> this will not run any task
+ansible-playbook tag.yml --tags alpha,  curl node2  --> it should show alpha content
+ansible-playbook tag.yml --tags beta,  curl node2  --> it should show beta content
