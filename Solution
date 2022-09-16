@@ -21,7 +21,7 @@ cd ex447-4.tags.git/
 ## vim tag.yml
 
 - name: tags_task
-  hosts: dev
+  hosts: all
   tasks:
     - name: Copied alpha http content
       copy:
