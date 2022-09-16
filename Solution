@@ -13,27 +13,42 @@ modify the playbook by adding the tasks
 =====================================================================================================
 
 
+
+git clone https://github.com/rohitmeachu312/ex447-4.tags.git
+cd ex447-4.tags.git/
+
+
+## vim tag.yml
+
 - name: tags_task
   hosts: dev
   tasks:
-		- name: Copied alpha http content
-			copy:
-				content: "Hi webserver"
-				dest: /var/www/http/index.html
-			tags:
-				- alpha
-				- never
+    - name: Copied alpha http content
+      copy:
+	   content: "Hi webserver"
+	   dest: /var/www/http/index.html
+      tags:
+	   - alpha
+	   - never
 
-		- name: Copied beta http content
-			copy:
-				content: "webserver config"
-				dest: /var/www/http/index.html
-			tags:
-				- beta
-				- never
+    - name: Copied beta http content
+      copy:
+        content: "webserver config"
+	   dest: /var/www/http/index.html
+      tags:
+	   - beta
+	   - never
         
- ####tags: [never , alpha] ----- can be written like this also
-======================================================================================================
+ ## tags: [never , alpha] ----- can be written like this also
+
 ansible-playbook tag.yml --> this will not run any task
-ansible-playbook tag.yml --tags alpha,  curl node2  --> it should show alpha content
-ansible-playbook tag.yml --tags beta,  curl node2  --> it should show beta content
+ansible-playbook tag.yml --tags alpha
+curl node2  --> it should show alpha content
+ansible-playbook tag.yml --tags beta 
+curl node2  --> it should show beta content
+
+git add .
+git commit -m 'commit name'
+git push origin master
+cd ..
+
