@@ -1,38 +1,38 @@
 - hosts: dev
   tasks:
-   
+   #alpha
     - name: install vsftpd
       yum:
         name: vsftpd
         state: installed
-   
+   #beta
     - name: Install required packages
       yum:
         name:
           - httpd
           - firewalld
         state: latest
-
+   #beta
     - name: Start and enable firewall
       service:
         name: firewalld
         enabled: yes
         state: started
-
+    #beta
     - name: Open port 80
       firewalld:
         service: http
         permanent: yes
         state: enabled
         immediate: yes
-
+ #beta
     - name: Enable httpd
       service:
         name: httpd
         state: started
         enabled: yes
 
-
+ #beta
     - name: Generate a basic homepage from jinja2 template
       copy:
         content: "This should be executed with beta tag"
