@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: dev
   tasks:
     - name: install vsftpd
       yum:
