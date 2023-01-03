@@ -5,8 +5,6 @@
         name: vsftpd
         state: installed
 
-
-
     - name: install httpd
       yum:
          name: httpd
