@@ -1,11 +1,41 @@
 - hosts: dev
   tasks:
+   
     - name: install vsftpd
       yum:
         name: vsftpd
         state: installed
-
-    - name: install httpd
+   
+    - name: Install required packages
       yum:
-         name: httpd
-         state: installed 
+        name:
+          - httpd
+          - firewalld
+        state: latest
+
+    - name: Start and enable firewall
+      service:
+        name: firewalld
+        enabled: yes
+        state: started
+
+    - name: Open port 80
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: Enable httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+
+    - name: Generate a basic homepage from jinja2 template
+      copy:
+        content: "This should be executed with beta tag"
+        dest: /var/www/html/index.html
+ 
+  
